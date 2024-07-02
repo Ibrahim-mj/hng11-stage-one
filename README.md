@@ -11,7 +11,7 @@ This project sets up a basic web server using Flask that exposes an API endpoint
 
 ## Endpoint
 
-### [GET] `/api/hello`
+### [GET] `/hello`
 
 **Query Parameters:**
 
@@ -64,7 +64,7 @@ pip install -r requirements.txt
 flask run
 ```
 
-2. Open your browser and navigate to `http://localhost:5000/api/hello` to access the API endpoint.
+2. Open your browser and navigate to `http://localhost:5000/hello` to access the API endpoint.
 
 3. You can also pass a `visitor_name` query parameter to customize the greeting message:
 
