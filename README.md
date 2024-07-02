@@ -61,7 +61,7 @@ pip install -r requirements.txt
 1. Start the Flask server:
 
 ```bash
-flask runn
+flask run
 ```
 
 2. Open your browser and navigate to `http://localhost:5000/api/hello` to access the API endpoint.

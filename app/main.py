@@ -9,7 +9,7 @@ from config import Config
 class GreetUser(View):
     def dispatch_request(self):
 
-        visitor_name = request.args.get('visitor_name', 'Unknown')
+        visitor_name = request.args.get('visitor_name', 'Guest')
         if request.headers.getlist("X-Forwarded-For"):
             client_ip = request.headers.getlist("X-Forwarded-For")[0]
         else:
@@ -19,7 +19,7 @@ class GreetUser(View):
         location_service_url = f"http://ip-api.com/json/{client_ip}"
         location_data = requests.get(location_service_url).json()
         
-        city = location_data.get('city', 'Guest')
+        city = location_data.get('city', 'Unknown City')
         longitude = location_data.get('lon')
         latitude = location_data.get('lat')
 
