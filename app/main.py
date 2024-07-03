@@ -8,10 +8,8 @@ from config import Config
 
 class GreetUser(View):
     def dispatch_request(self):
-        if request.headers.getlist("X-Forwarded-For"):
-            client_ip = request.headers.getlist("HTTP_X_FORWARDED_FOR")[0]
-        else:
-            client_ip = request.access_route[0]
+        
+        client_ip = request.access_route[-1]
 
         location_data = requests.get(f"http://ip-api.com/json/{client_ip}").json()
         
