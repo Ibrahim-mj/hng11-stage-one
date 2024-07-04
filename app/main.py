@@ -8,8 +8,13 @@ from config import Config
 
 class GreetUser(View):
     def get_ip(self):
-        response = requests.get('https://api64.ipify.org?format=json').json()
-        return response["ip"]
+     ip = request.headers.get('x-forwarded-for') or req.remote_addr or req.environ.get('REMOTE_ADDR') or None
+     if ip and ',' in ip:
+         ip = ip.split(',')[0]
+     if ip and ip.startswith('::ffff:'):
+         ip = ip[7:]
+     return ip
+
     def get_location(self):
         client_ip = self.get_ip()
         response = requests.get(f'https://ipapi.co/{client_ip}/json/').json()
