@@ -8,7 +8,7 @@ from config import Config
 
 class GreetUser(View):
     def get_ip(self):
-     ip = request.headers.get('x-forwarded-for') or req.remote_addr or req.environ.get('REMOTE_ADDR') or None
+     ip = request.headers.get('x-forwarded-for') or request.remote_addr or request.environ.get('REMOTE_ADDR') or None
      if ip and ',' in ip:
          ip = ip.split(',')[0]
      if ip and ip.startswith('::ffff:'):
