@@ -8,22 +8,19 @@ from config import Config
 
 class GreetUser(View):
     def get_ip(self):
-       ip = (
-        request.headers.get('x-forwarded-for') or
-        request.remote_addr or
-        request.environ.get('REMOTE_ADDR') or
-        None
-    )
+        ip = (
+            request.headers.get('x-forwarded-for') or
+            request.remote_addr or
+            request.environ.get('REMOTE_ADDR') or
+            None
+        )
+        if ip and ',' in ip:
+            ip = ip.split(',')[0]
+        if ip and ip.startswith('::ffff:'):
+            ip = ip[7:]
+        return ip
 
-    if ip and ',' in ip:
-        ip = ip.split(',')[0]
-
-    if ip and ip.startswith('::ffff:'):
-        ip = ip[7:]
-
-    return ip
-
-
+        
     def get_location(self):
         client_ip = self.get_ip()
         response = requests.get(f'https://ipapi.co/{client_ip}/json/').json()
@@ -31,7 +28,8 @@ class GreetUser(View):
         longitude = response.get('lon')
         latitude = response.get('lat')
 
-        weather_data = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={Config.WEATHER_API_KEY}").json()
+        WEATHER_API_KEY='ad50fd5c91caf6b8dbb497b6b9886b30'
+        weather_data = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={WEATHER_API_KEY}").json()
         location_data = {
             "client_ip": client_ip,
             "city": response.get("city"),
