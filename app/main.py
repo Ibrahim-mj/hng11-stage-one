@@ -17,8 +17,7 @@ class GreetUser(View):
         longitude = response.get('lon')
         latitude = response.get('lat')
 
-        WEATHER_API_KEY='ad50fd5c91caf6b8dbb497b6b9886b30'
-        weather_data = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={WEATHER_API_KEY}").json()
+        weather_data = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={Config.WEATHER_API_KEY}").json()
         location_data = {
             "client_ip": client_ip,
             "city": response.get("city"),
