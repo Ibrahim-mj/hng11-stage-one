@@ -18,7 +18,6 @@ class GreetUser(View):
         client_ip = self.get_ip()
         # response = requests.get(f'http://ip-api.com/json/{client_ip}').json()
         response = requests.get(f'https://ipapi.co/{client_ip}/json/').json()
-        print(f'response:{response}')
 
         longitude = response.get('longitude')
         latitude = response.get('latitude')
