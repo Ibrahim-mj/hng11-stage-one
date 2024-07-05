@@ -17,6 +17,7 @@ class GreetUser(View):
     def get_location(self):
         client_ip = self.get_ip()
         response = requests.get(f'https://ipapi.co/{client_ip}/json/').json()
+        print(f'response:{response}')
 
         longitude = response.get('lon')
         latitude = response.get('lat')
