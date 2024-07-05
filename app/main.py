@@ -8,19 +8,12 @@ from config import Config
 
 class GreetUser(View):
     def get_ip(self):
-        ip = (
-            request.headers.get('x-forwarded-for') or
-            request.remote_addr or
-            request.environ.get('REMOTE_ADDR') or
-            None
-        )
-        if ip and ',' in ip:
-            ip = ip.split(',')[0]
-        if ip and ip.startswith('::ffff:'):
-            ip = ip[7:]
-        return ip
-
-        
+        try:
+            return request.headers['X-Real-IP']
+        except KeyError:
+            # Handle case where X-Real-IP header is not present
+            return request.remote_addr
+            
     def get_location(self):
         client_ip = self.get_ip()
         response = requests.get(f'https://ipapi.co/{client_ip}/json/').json()
@@ -35,6 +28,7 @@ class GreetUser(View):
             "temperature": weather_data.get('main', {}).get('temp', 0)
         }
         return location_data
+        
     def dispatch_request(self):
 
         location_data = self.get_location()
