@@ -26,7 +26,7 @@ class GreetUser(View):
         location_data = {
             "client_ip": client_ip,
             "city": response.get("city"),
-            "temperature": 273 - weather_data.get('main', {}).get('temp', 0)
+            "temperature": round(weather_data.get('main', {}).get('temp', 0) - 273)
         }
         return location_data
         
