@@ -20,8 +20,8 @@ class GreetUser(View):
         response = requests.get(f'https://ipapi.co/{client_ip}/json/').json()
         print(f'response:{response}')
 
-        longitude = response.get('lon')
-        latitude = response.get('lat')
+        longitude = response.get('longitude')
+        latitude = response.get('latitude')
 
         weather_data = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={Config.WEATHER_API_KEY}").json()
         location_data = {
